@@ -23,7 +23,7 @@
 ### 1️⃣ Clone the Repository  
 ```bash
 git clone https://github.com/developer-ravi-03/Social-Media-app.git
-cd Social-Media-app
+cd Social-Media-app```
 
 cd backend
 npm install
