@@ -23,11 +23,16 @@
 ### 1️⃣ Clone the Repository  
 ```bash
 git clone https://github.com/developer-ravi-03/Social-Media-app.git
-cd Social-Media-app```
-
+cd Social-Media-app
+bash```
+##Backend Setup
+```bash
 cd backend
 npm install
 npm start
-
+bash```
+##.ENV
+```bash
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
+bash```
