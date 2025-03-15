@@ -15,23 +15,35 @@ const UserAccount = ({ user: loggedInUser }) => {
 
   const { posts, reels } = PostData();
 
-  const [user, setUser] = useState([]);
-
   const params = useParams();
+
+  const [user, setUser] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
   //for see user profile
   async function fetchUser() {
-    try {
-      const { data } = await axios.get("/api/user/" + params.id);
-
-      setUser(data);
+    if (!params.id) {
+      console.error("User ID is undefined");
       setLoading(false);
+      return;
+    }
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    try {
+      const { data } = await axios.get(`/api/user/${params.id}`, { signal });
+      setUser(data);
     } catch (error) {
-      console.log(error);
+      if (error.name !== "AbortError") {
+        console.error("Error fetching user:", error);
+      }
+    } finally {
       setLoading(false);
     }
+
+    return () => controller.abort();
   }
 
   console.log(user);
@@ -41,12 +53,12 @@ const UserAccount = ({ user: loggedInUser }) => {
   }, [params.id]);
 
   //for map the post and reel
-  let myPosts;
+  let myPosts = [];
 
   if (posts) {
     myPosts = posts.filter((post) => post.owner._id === user._id);
   }
-  let myReels;
+  let myReels = [];
 
   if (reels) {
     myReels = reels.filter((reel) => reel.owner._id === user._id);
@@ -85,8 +97,10 @@ const UserAccount = ({ user: loggedInUser }) => {
   const followers = user.followers;
 
   useEffect(() => {
-    if (followers && followers.includes(loggedInUser._id)) setFollowed(true);
-  }, [user]);
+    if (user.followers?.includes(loggedInUser._id)) {
+      setFollowed(true);
+    }
+  }, [user._id, user.followers, loggedInUser._id]);
 
   //show follow and unfollow data
   const [show, setShow] = useState(false);
@@ -96,9 +110,9 @@ const UserAccount = ({ user: loggedInUser }) => {
   const [followingsData, setFollowingsData] = useState([]);
 
   async function followData() {
+    if (!user._id) return;
     try {
-      const { data } = await axios.get("/api/user/followdata/" + user._id);
-
+      const { data } = await axios.get(`/api/user/followdata/${user._id}`);
       setFollowersData(data.followers);
       setFollowingsData(data.followings);
     } catch (error) {
@@ -108,7 +122,7 @@ const UserAccount = ({ user: loggedInUser }) => {
 
   useEffect(() => {
     followData();
-  }, [user]);
+  }, [user._id]);
 
   // const { onlineUsers } = SocketData();
 
