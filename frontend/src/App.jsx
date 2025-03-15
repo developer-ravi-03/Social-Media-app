@@ -11,6 +11,7 @@ import NotFound from "./components/NotFound";
 import Reels from "./pages/Reels";
 import { Loading } from "./components/Loading";
 import UserAccount from "./pages/UserAccount";
+import Search from "./pages/Search";
 
 const App = () => {
   const { loading, isAuth, user } = UserData();
@@ -37,6 +38,7 @@ const App = () => {
               element={!isAuth ? <Register /> : <Home />}
             />
             <Route path="*" element={<NotFound />} />
+            <Route path="/search" element={<Search />} />
           </Routes>
           {isAuth && <NavigationBar />}
         </BrowserRouter>

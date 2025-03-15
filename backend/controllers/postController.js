@@ -145,13 +145,13 @@ export const deleteComment = TryCatch(async (req, res) => {
       message: "No post with this id",
     });
 
-  if (!req.body.commentId)
+  if (!req.query.commentId)
     return res.status(404).json({
       message: "please give comment id",
     });
 
   const commentIndex = post.comments.findIndex(
-    (item) => item._id.toString() === req.body.commentId.toString()
+    (item) => item._id.toString() === req.query.commentId.toString()
   );
 
   if (commentIndex === -1) {

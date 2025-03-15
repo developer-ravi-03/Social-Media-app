@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const Modal = ({ value, title, setShow }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-30">
       <div className="bg-white rounded-lg p-4 shadow-lg w-[300px] max-h-[300px] overflow-y-auto">
         <h1 className="text-2xl text-blue-600">{title}</h1>
         <div className="flex justify-end">

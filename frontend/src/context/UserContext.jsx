@@ -12,7 +12,7 @@ export const UserContextProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   //for register user
-  async function registerUser(formdata, navigate) {
+  async function registerUser(formdata, navigate, fetchPosts) {
     setLoading(true);
     try {
       const { data } = await axios.post("/api/auth/register", formdata);
@@ -22,6 +22,7 @@ export const UserContextProvider = ({ children }) => {
       setUser(data.user);
       navigate("/");
       setLoading(false);
+      fetchPosts();
     } catch (error) {
       toast.error(error.response.data.message);
       setLoading(false);
@@ -29,7 +30,7 @@ export const UserContextProvider = ({ children }) => {
   }
 
   //for login user
-  async function loginUser(email, password, navigate) {
+  async function loginUser(email, password, navigate, fetchPosts) {
     setLoading(true);
     try {
       const { data } = await axios.post("/api/auth/login", {
@@ -43,6 +44,7 @@ export const UserContextProvider = ({ children }) => {
       setUser(data.user);
       navigate("/");
       setLoading(false);
+      fetchPosts();
     } catch (error) {
       toast.error(error.response.data.message);
       setLoading(false);
@@ -90,26 +92,29 @@ export const UserContextProvider = ({ children }) => {
     }
   }
 
-  // async function updateProfilePic(id, formdata, setFile) {
-  //   try {
-  //     const { data } = await axios.put("/api/user/" + id, formdata);
-  //     toast.success(data.message);
-  //     fetchUser();
-  //     setFile(null);
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //   }
-  // }
-  // async function updateProfileName(id, name, setShowInput) {
-  //   try {
-  //     const { data } = await axios.put("/api/user/" + id, { name });
-  //     toast.success(data.message);
-  //     fetchUser();
-  //     setShowInput(false);
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //   }
-  // }
+  //for update profile pic
+  async function updateProfilePic(id, formdata, setFile) {
+    try {
+      const { data } = await axios.put("/api/user/" + id, formdata);
+      toast.success(data.message);
+      fetchUser();
+      setFile(null);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
+
+  //for update profile name
+  async function updateProfileName(id, name, setShowInput) {
+    try {
+      const { data } = await axios.put("/api/user/" + id, { name });
+      toast.success(data.message);
+      fetchUser();
+      setShowInput(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
 
   useEffect(() => {
     fetchUser();
@@ -127,6 +132,8 @@ export const UserContextProvider = ({ children }) => {
         logoutUser,
         registerUser,
         followUser,
+        updateProfilePic,
+        updateProfileName,
       }}
     >
       {children}

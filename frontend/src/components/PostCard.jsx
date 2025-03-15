@@ -8,13 +8,17 @@ import { PostData } from "../context/PostContext";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
+import SimpleModal from "./SimpleModal";
+import { LoadingAnimation } from "./Loading";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const PostCard = ({ type, value }) => {
   const [isLike, setIsLike] = useState(false);
   const [show, setShow] = useState(false);
 
   const { user } = UserData();
-  const { likePost, addComment } = PostData();
+  const { likePost, addComment, deletePost, loading, fetchPosts } = PostData();
 
   //date formatter
   const formatDate = format(new Date(value.createdAt), "MMMM do");
@@ -41,39 +45,38 @@ const PostCard = ({ type, value }) => {
     addComment(value._id, comment, setComment, setShow);
   };
 
-  // const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
-  // const closeModal = () => {
-  //   setShowModal(false);
-  // };
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
-  // const deleteHandler = () => {
-  //   deletePost(value._id);
-  // };
+  const deleteHandler = () => {
+    deletePost(value._id);
+  };
 
-  // const [showInput, setShowInput] = useState(false);
-  // const editHandler = () => {
-  //   setShowModal(false);
-  //   setShowInput(true);
-  // };
+  const [showInput, setShowInput] = useState(false);
+  const editHandler = () => {
+    setShowModal(false);
+    setShowInput(true);
+  };
 
-  // const [caption, setCaption] = useState(value.caption ? value.caption : "");
-  // const [captionLoading, setCaptionLoading] = useState(false);
+  const [caption, setCaption] = useState(value.caption ? value.caption : "");
+  const [captionLoading, setCaptionLoading] = useState(false);
 
-  // async function updateCaption() {
-  //   setCaptionLoading(true);
-  //   try {
-  //     const { data } = await axios.put("/api/post/" + value._id, { caption });
-
-  //     toast.success(data.message);
-  //     fetchPosts();
-  //     setShowInput(false);
-  //     setCaptionLoading(false);
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //     setCaptionLoading(false);
-  //   }
-  // }
+  async function updateCaption() {
+    setCaptionLoading(true);
+    try {
+      const { data } = await axios.put("/api/post/" + value._id, { caption });
+      toast.success(data.message);
+      fetchPosts();
+      setShowInput(false);
+      setCaptionLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setCaptionLoading(false);
+    }
+  }
 
   // const [open, setOpen] = useState(false);
 
@@ -85,6 +88,24 @@ const PostCard = ({ type, value }) => {
 
   return (
     <div className="bg-gray-100 flex items-center justify-center pt-3 pb-14">
+      <SimpleModal isOpen={showModal} onClose={closeModal}>
+        {/* <LikeModal isOpen={open} onClose={oncloseLIke} id={value._id} /> */}
+        <div className="flex flex-col items-center justify-center gap-3">
+          <button
+            onClick={editHandler}
+            className="bg-blue-400 text-white py-1 px-3 rounded-md"
+          >
+            Edit
+          </button>
+          <button
+            onClick={deleteHandler}
+            className="bg-red-400 text-white py-1 px-3 rounded-md"
+            disabled={loading}
+          >
+            {loading ? <LoadingAnimation /> : "Delete"}
+          </button>
+        </div>
+      </SimpleModal>
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md">
         <div className="flex items-center space-x-2">
           <Link
@@ -104,7 +125,7 @@ const PostCard = ({ type, value }) => {
           {value.owner._id === user._id && (
             <div className="text-gray-500 cursor-pointer">
               <button
-                // onClick={() => setShowModal(true)}
+                onClick={() => setShowModal(true)}
                 className="hover:bg-gray-50 rounded-full p-1 text-2xl"
               >
                 <BsThreeDotsVertical />
@@ -113,8 +134,36 @@ const PostCard = ({ type, value }) => {
           )}
         </div>
 
+        {/* caption here edit and update */}
         <div className="mb-4">
-          <p className="text-gray-800">{value.caption}</p>
+          {showInput ? (
+            <>
+              <input
+                className="custom-input"
+                style={{ width: "150px" }}
+                type="text"
+                placeholder="Enter Caption"
+                value={caption}
+                onChange={(e) => setCaption(e.target.value)}
+                required
+              />
+              <button
+                onClick={updateCaption}
+                className="text-sm bg-blue-500 text-white px-1 py-1 rounded-md"
+                disabled={captionLoading}
+              >
+                {captionLoading ? <LoadingAnimation /> : "Update Caption"}
+              </button>
+              <button
+                className="text-sm bg-red-500 text-white px-1 py-1 rounded-md"
+                onClick={() => setShowInput(false)}
+              >
+                X
+              </button>
+            </>
+          ) : (
+            <p className="text-gray-800">{value.caption}</p>
+          )}
         </div>
 
         <div className="mb-4">
@@ -180,16 +229,15 @@ const PostCard = ({ type, value }) => {
         <div className="mt-4">
           <div className="comments max-h-[150px] overflow-y-auto">
             {value.comments && value.comments.length > 0 ? (
-              value.comments.map(
-                (e) => <Comment key={e._id} value={e} user={user} />
-                // <Comment
-                // value={e}
-                // key={e._id}
-                //   user={user}
-                //   owner={value.owner._id}
-                //   id={value._id}
-                // />
-              )
+              value.comments.map((e) => (
+                <Comment
+                  key={e._id}
+                  value={e}
+                  user={user}
+                  owner={value.owner._id}
+                  id={value._id}
+                />
+              ))
             ) : (
               <p>No Comments</p>
             )}
@@ -202,7 +250,12 @@ const PostCard = ({ type, value }) => {
 
 export default PostCard;
 
-export const Comment = ({ value, user }) => {
+export const Comment = ({ value, user, owner, id }) => {
+  const { deleteComment } = PostData();
+
+  const deleteCommentHandler = () => {
+    deleteComment(id, value._id);
+  };
   return (
     <div className="flex items-center space-x-2 mt-2">
       <Link to={`/user/${value.user._id}`}>
@@ -217,26 +270,23 @@ export const Comment = ({ value, user }) => {
         <p className="text-gray-500 text-sm">{value.comment}</p>
       </div>
 
-      {/* {owner === user._id ? (
+      {owner === user._id ? (
         ""
       ) : (
-        <> */}
-      {value.user._id === user._id && (
-        <button
-          // onClick={deleteCommentHandler}
-          className="text-red-500"
-        >
+        <>
+          {value.user._id === user._id && (
+            <button onClick={deleteCommentHandler} className="text-red-500">
+              <MdDelete />
+            </button>
+          )}
+        </>
+      )}
+
+      {owner === user._id && (
+        <button onClick={deleteCommentHandler} className="text-red-500">
           <MdDelete />
         </button>
       )}
-      {/* </> */}
-      {/* )} */}
-
-      {/* {owner === user._id && (
-       <button onClick={deleteCommentHandler} className="text-red-500">
-     <MdDelete />
-     </button>
-     )} */}
     </div>
   );
 };

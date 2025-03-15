@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { UserData } from "../context/userContext";
+import { PostData } from "../context/postContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,10 +11,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { loginUser, loading } = UserData();
+  const { fetchPosts } = PostData();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    loginUser(email, password, navigate);
+    loginUser(email, password, navigate, fetchPosts);
   };
 
   return (

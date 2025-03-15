@@ -72,32 +72,32 @@ export const PostContextProvider = ({ children }) => {
     }
   }
 
-  // async function deletePost(id) {
-  //   setLoading(true);
-  //   try {
-  //     const { data } = await axios.delete("/api/post/" + id);
+  async function deletePost(id) {
+    setLoading(true);
+    try {
+      const { data } = await axios.delete("/api/post/" + id);
 
-  //     toast.success(data.message);
-  //     fetchPosts();
-  //     setLoading(false);
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //     setLoading(false);
-  //   }
-  // }
+      toast.success(data.message);
+      fetchPosts();
+      setLoading(false);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      setLoading(false);
+    }
+  }
 
-  // async function deleteComment(id, commentId) {
-  //   try {
-  //     const { data } = await axios.delete(
-  //       `/api/post/comment/${id}?commentId=${commentId}`
-  //     );
+  async function deleteComment(id, commentId) {
+    try {
+      const { data } = await axios.delete(
+        `/api/post/comment/${id}?commentId=${commentId}`
+      );
 
-  //     toast.success(data.message);
-  //     fetchPosts();
-  //   } catch (error) {
-  //     toast.error(error.response.data.message);
-  //   }
-  // }
+      toast.success(data.message);
+      fetchPosts();
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  }
 
   useEffect(() => {
     fetchPosts();
@@ -112,6 +112,9 @@ export const PostContextProvider = ({ children }) => {
         addComment,
         loading,
         addLoading,
+        fetchPosts,
+        deletePost,
+        deleteComment,
       }}
     >
       {children}
