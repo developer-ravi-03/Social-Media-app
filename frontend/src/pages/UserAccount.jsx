@@ -46,7 +46,7 @@ const UserAccount = ({ user: loggedInUser }) => {
     return () => controller.abort();
   }
 
-  console.log(user);
+  // console.log(user);
 
   useEffect(() => {
     fetchUser();
