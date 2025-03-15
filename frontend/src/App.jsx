@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { UserData } from "./context/userContext";
 import Account from "./pages/Account";
 import NavigationBar from "./components/NavigationBar";
 import NotFound from "./components/NotFound";
@@ -14,6 +13,7 @@ import UserAccount from "./pages/UserAccount";
 import Search from "./pages/Search";
 import ChatPage from "./pages/ChatPage";
 import { SocketData } from "./context/SocketContext";
+import { UserData } from "./context/UserContext";
 
 const App = () => {
   const { loading, isAuth, user } = UserData();

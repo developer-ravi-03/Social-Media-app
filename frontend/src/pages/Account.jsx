@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserData } from "../context/userContext";
 import { PostData } from "../context/PostContext";
 import PostCard from "../components/PostCard";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
@@ -11,6 +10,7 @@ import Modal from "../components/Modal";
 import { Loading } from "../components/Loading";
 import { CiEdit } from "react-icons/ci";
 import toast from "react-hot-toast";
+import { UserData } from "../context/UserContext";
 
 const Account = ({ user }) => {
   const navigate = useNavigate();

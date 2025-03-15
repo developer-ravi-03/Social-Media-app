@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UserData } from "../context/userContext";
+
 import { PostData } from "../context/postContext";
+import { UserData } from "../context/UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
