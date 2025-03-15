@@ -166,7 +166,7 @@ const UserAccount = ({ user: loggedInUser }) => {
                       className="text-gray-500 text-sm cursor-pointer"
                       onClick={() => setShow(true)}
                     >
-                      {user.followers.length} folower
+                      {user.followers.length} followers
                     </p>
                     <p
                       className="text-gray-500 text-sm cursor-pointer"

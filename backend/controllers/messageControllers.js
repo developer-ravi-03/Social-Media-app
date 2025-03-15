@@ -1,5 +1,6 @@
 import { Chat } from "../models/ChatModel.js";
 import { Messages } from "../models/Messages.js";
+import { getReciverSocketId, io } from "../socket/socket.js";
 import TryCatch from "../utils/TryCatch.js";
 
 export const sendMessage = TryCatch(async (req, res) => {
@@ -8,9 +9,9 @@ export const sendMessage = TryCatch(async (req, res) => {
   const senderId = req.user._id;
 
   if (!receiverId) {
-    return res.status(400).json({ 
+    return res.status(400).json({
       message: "Please give receiver id",
-     });
+    });
   }
 
   let chat = await Chat.findOne({
@@ -42,6 +43,14 @@ export const sendMessage = TryCatch(async (req, res) => {
       sender: senderId,
     },
   });
+
+  //for receiver socket id
+  const reciverSocketId = getReciverSocketId(receiverId);
+
+  if (reciverSocketId) {
+    io.to(reciverSocketId).emit("newMessage", newMessage);
+  }
+
   res.status(201).json(newMessage);
 });
 

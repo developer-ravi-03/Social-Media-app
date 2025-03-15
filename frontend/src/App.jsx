@@ -12,9 +12,12 @@ import Reels from "./pages/Reels";
 import { Loading } from "./components/Loading";
 import UserAccount from "./pages/UserAccount";
 import Search from "./pages/Search";
+import ChatPage from "./pages/ChatPage";
+import { SocketData } from "./context/SocketContext";
 
 const App = () => {
   const { loading, isAuth, user } = UserData();
+
   return (
     <>
       {loading ? (
@@ -38,7 +41,11 @@ const App = () => {
               element={!isAuth ? <Register /> : <Home />}
             />
             <Route path="*" element={<NotFound />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search" element={isAuth ? <Search /> : <Login />} />
+            <Route
+              path="/chat"
+              element={isAuth ? <ChatPage user={user} /> : <Login />}
+            />
           </Routes>
           {isAuth && <NavigationBar />}
         </BrowserRouter>

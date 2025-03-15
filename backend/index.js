@@ -6,6 +6,9 @@ import cookieParser from "cookie-parser";
 import { isAuth } from "./middlewares/isAuth.js";
 import { Chat } from "./models/ChatModel.js";
 import { User } from "./models/userModels.js";
+//for socket.io
+import { app, server } from "./socket/socket.js";
+import path from "path";
 
 //dot env
 dotenv.config();
@@ -17,16 +20,17 @@ cloudinary.v2.config({
   api_secret: process.env.Cloudinary_Secret,
 });
 
-const app = express();
+//because it comes from socket.js
+// const app = express();
 
 //using middlewares
 app.use(express.json());
 app.use(cookieParser());
 
 const port = process.env.PORT;
-app.get("/", (req, res) => {
-  res.send("Server Working");
-});
+// app.get("/", (req, res) => {
+//   res.send("Server Working");
+// });
 
 // to get all chats of user
 app.get("/api/messages/chats", isAuth, async (req, res) => {
@@ -72,7 +76,6 @@ app.get("/api/user/all", isAuth, async (req, res) => {
   }
 });
 
-
 //importing routes
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
@@ -85,7 +88,22 @@ app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/messages", messageRoutes);
 
-app.listen(port, () => {
+//for hosting on a platform
+const __dirname = path.resolve();
+
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+});
+
+//it commented because it also comes from socket.js
+// app.listen(port, () => {
+//   console.log(`Server is running on http://localhost:${port}`);
+//   connectDb();
+// });
+
+server.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
   connectDb();
 });
