@@ -12,6 +12,7 @@ import SimpleModal from "./SimpleModal";
 import { LoadingAnimation } from "./Loading";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { SocketData } from "../context/SocketContext";
 
 const PostCard = ({ type, value }) => {
   const [isLike, setIsLike] = useState(false);
@@ -78,13 +79,15 @@ const PostCard = ({ type, value }) => {
     }
   }
 
-  // const [open, setOpen] = useState(false);
+  //for showing online user
 
-  // const oncloseLIke = () => {
-  //   setOpen(false);
-  // };
+  const [open, setOpen] = useState(false);
 
-  // const { onlineUsers } = SocketData();
+  const oncloseLIke = () => {
+    setOpen(false);
+  };
+
+  const { onlineUsers } = SocketData();
 
   return (
     <div className="bg-gray-100 flex items-center justify-center pt-3 pb-14">
@@ -117,6 +120,9 @@ const PostCard = ({ type, value }) => {
               alt=""
               className="w-8 h-8 rounded-full"
             />
+            {onlineUsers.includes(value.owner._id) && (
+              <div className="text-5xl font-bold text-green-400">.</div>
+            )}
             <div>
               <p className="text-gray-800 font-semibold">{value.owner.name}</p>
               <div className="text-gray-500 text-sm">{formatDate}</div>

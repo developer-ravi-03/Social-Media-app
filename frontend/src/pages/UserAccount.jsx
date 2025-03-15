@@ -9,6 +9,8 @@ import axios from "axios";
 import { Loading } from "../components/Loading";
 import { UserData } from "../context/UserContext";
 import Modal from "../components/Modal";
+import { SocketData } from "../context/SocketContext";
+import { GoDotFill } from "react-icons/go";
 
 const UserAccount = ({ user: loggedInUser }) => {
   const navigate = useNavigate();
@@ -124,7 +126,7 @@ const UserAccount = ({ user: loggedInUser }) => {
     followData();
   }, [user._id]);
 
-  // const { onlineUsers } = SocketData();
+  const { onlineUsers } = SocketData();
 
   return (
     <>
@@ -174,7 +176,17 @@ const UserAccount = ({ user: loggedInUser }) => {
                     >
                       {user.followings.length} following
                     </p>
-
+                    {onlineUsers.includes(user._id) && (
+                      <>
+                        {/* <div className="text-5xl font-bold text-green-400">
+                          .
+                        </div> */}
+                        <span className="text-green-400 flex items-center gap-2">
+                          <GoDotFill />
+                          Online
+                        </span>
+                      </>
+                    )}
                     {user._id === loggedInUser._id ? (
                       ""
                     ) : (
