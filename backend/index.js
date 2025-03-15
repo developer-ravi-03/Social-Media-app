@@ -88,6 +88,7 @@ app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/messages", messageRoutes);
 
+//for production
 //for hosting on a platform
 const __dirname = path.resolve();
 
