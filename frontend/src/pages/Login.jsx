@@ -2,8 +2,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import { PostData } from "../context/postContext";
 import { UserData } from "../context/UserContext";
+import { PostData } from "../context/PostContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
