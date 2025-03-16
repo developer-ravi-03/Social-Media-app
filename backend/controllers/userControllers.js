@@ -1,7 +1,7 @@
 import { User } from "../models/userModels.js";
 import getDataURL from "../utils/urlGenerator.js";
 import cloudinary from "cloudinary";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import TryCatch from "../utils/TryCatch.js";
 
 //user profile block -- fetch self profile

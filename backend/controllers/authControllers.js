@@ -1,6 +1,6 @@
 import { User } from "../models/userModels.js";
 import getDataURL from "../utils/urlGenerator.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import cloudinary from "cloudinary";
 import generateToken from "../utils/generateToken.js";
 import TryCatch from "../utils/TryCatch.js";
