@@ -1,8 +1,8 @@
-import TryCatch from "../utils/Trycatch.js";
 import { User } from "../models/userModels.js";
 import getDataURL from "../utils/urlGenerator.js";
 import cloudinary from "cloudinary";
 import bcrypt from "bcrypt";
+import TryCatch from "../utils/TryCatch.js";
 
 //user profile block -- fetch self profile
 export const myProfile = TryCatch(async (req, res) => {
