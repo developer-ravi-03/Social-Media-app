@@ -11,35 +11,8 @@ import { app, server } from "./socket/socket.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
-//this is website
-const url = `https://social-media-app-gkbm.onrender.com`;
-const interval = 30000;
-
-function reloadWebsite() {
-  axios
-    .get(url)
-    .then((response) => {
-      console.log(
-        `Reloaded at ${new Date().toISOString()}: Status Code ${
-          response.status
-        }`
-      );
-    })
-    .catch((error) => {
-      console.error(
-        `Error reloading at ${new Date().toISOString()}:`,
-        error.message
-      );
-    });
-}
-
-setInterval(reloadWebsite, interval);
-
 //dot env
-// dotenv.config();
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-dotenv.config({ path: path.resolve(__dirname, "../.env") });
+dotenv.config();
 
 //cloudinary
 cloudinary.v2.config({
@@ -120,8 +93,8 @@ app.use("/api/messages", messageRoutes);
 //for hosting on a platform
 // const __dirname = path.resolve();
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 app.get("*", (req, res) => {
