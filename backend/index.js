@@ -12,7 +12,10 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 //dot env
-dotenv.config();
+// dotenv.config();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 //cloudinary
 cloudinary.v2.config({
@@ -93,8 +96,8 @@ app.use("/api/messages", messageRoutes);
 //for hosting on a platform
 // const __dirname = path.resolve();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 app.get("*", (req, res) => {
