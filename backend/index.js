@@ -9,6 +9,7 @@ import { User } from "./models/userModels.js";
 //for socket.io
 import { app, server } from "./socket/socket.js";
 import path from "path";
+import { fileURLToPath } from "url";
 
 //dot env
 dotenv.config();
@@ -90,13 +91,21 @@ app.use("/api/messages", messageRoutes);
 
 //for production
 //for hosting on a platform
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
 });
+
+// app.use(express.static(path.join(__dirname, "./frontend/dist")));
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+// });
 
 //it commented because it also comes from socket.js
 // app.listen(port, () => {

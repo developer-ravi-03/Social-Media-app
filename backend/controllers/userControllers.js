@@ -132,5 +132,3 @@ export const updatePassword = TryCatch(async (req, res) => {
     message: "Password updated",
   });
 });
-
-
