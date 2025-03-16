@@ -11,6 +11,31 @@ import { app, server } from "./socket/socket.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
+import axios from "axios";
+
+const url = `https://social-media-app-gkbm.onrender.com`;
+const interval = 30000;
+
+function reloadWebsite() {
+  axios
+    .get(url)
+    .then((response) => {
+      console.log(
+        `Reloaded at ${new Date().toISOString()}: Status Code ${
+          response.status
+        }`
+      );
+    })
+    .catch((error) => {
+      console.error(
+        `Error reloading at ${new Date().toISOString()}:`,
+        error.message
+      );
+    });
+}
+
+setInterval(reloadWebsite, interval);
+
 //dot env
 dotenv.config();
 
