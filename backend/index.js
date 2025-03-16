@@ -13,6 +13,7 @@ import { fileURLToPath } from "url";
 
 import axios from "axios";
 
+//for reload website
 const url = `https://social-media-app-gkbm.onrender.com`;
 const interval = 30000;
 
