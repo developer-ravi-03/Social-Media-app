@@ -82,7 +82,7 @@ const MessageContainer = ({ selectedChat, setChats }) => {
             <>
               <div
                 ref={messageContainerRef}
-                className="flex flex-col gap-4  h-[80vh] sm:h-[70vh] overflow-y-auto  border-gray-300 bg-gray-50 p-3"
+                className="flex flex-col gap-4  h-[70vh] overflow-y-auto  border-gray-300 bg-gray-50 p-3"
               >
                 {messages &&
                   messages.map((e) => (
