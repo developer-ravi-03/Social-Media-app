@@ -75,21 +75,21 @@ const MessageContainer = ({ selectedChat, setChats }) => {
   return (
     <>
       {selectedChat && (
-        <div className="flex flex-col">
+        <div className="flex flex-col h-screen">
           {loading ? (
             <LoadingAnimation />
           ) : (
             <>
               <div
                 ref={messageContainerRef}
-                className="flex flex-col gap-4  h-[380px] overflow-y-auto  border-gray-300 bg-gray-50 p-3"
+                className="flex-1 overflow-y-scroll bg-gray-50 p-3"
               >
                 {messages &&
-                  messages.map((e) => (
+                  messages.map((message) => (
                     <Message
-                      key={e._id}
-                      message={e.text}
-                      ownMessage={e.sender === user._id && true}
+                      key={message._id}
+                      message={message.text}
+                      ownMessage={message.sender === user._id}
                     />
                   ))}
               </div>
