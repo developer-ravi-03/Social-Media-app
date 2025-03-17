@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { ChatData } from "../../context/ChatContext";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { Send } from "lucide-react";
 
 const MessageInput = ({ setMessages, selectedChat }) => {
   //input for sending message
@@ -44,18 +45,21 @@ const MessageInput = ({ setMessages, selectedChat }) => {
     }
   };
   return (
-    <div>
-      <form onSubmit={handleMessage}>
+    <div className="w-full bg-white py-3 px-4  flex items-center sticky bottom-6">
+      <form onSubmit={handleMessage} className="w-full flex items-center">
         <input
           type="text"
-          placeholder="enter Message"
-          className="border border-gray-300 bg-white rounded-lg p-2 w-[80%]"
+          placeholder="Type a message..."
+          className="flex-1 border border-gray-300 bg-white rounded-lg p-2 focus:outline-none"
           value={textMsg}
           onChange={(e) => setTextMsg(e.target.value)}
           required
         />
-        <button type="submit" className="bg-blue-500 text-white p-2 rounded-lg">
-          send
+        <button
+          type="submit"
+          className="ml-2 bg-blue-500 text-white p-2 rounded-lg flex items-center justify-center"
+        >
+          <Send />
         </button>
       </form>
     </div>
