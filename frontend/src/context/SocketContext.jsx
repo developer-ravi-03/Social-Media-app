@@ -11,23 +11,34 @@ const SocketContext = createContext();
 export const SocketContextProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
-  // const { user } = (<UserData></UserData>)();
   const { user } = UserData();
+
   useEffect(() => {
-    const socket = io(EndPoint, {
-      query: {
-        userId: user?._id,
-      },
+    if (!user?._id) return;
+
+    const newSocket = io(EndPoint, {
+      query: { userId: user._id },
+      transports: ["websocket"], // ✅ Ensure WebSocket is used instead of polling
     });
 
-    setSocket(socket);
+    setSocket(newSocket);
 
-    socket.on("getOnlineUser", (users) => {
+    newSocket.on("getOnlineUser", (users) => {
       setOnlineUsers(users);
     });
 
-    return () => socket && socket.close();
+    // ✅ Listen for new messages globally
+    newSocket.on("messageReceived", (message) => {
+      console.log("🔴 New message received:", message);
+    });
+
+    return () => {
+      newSocket.off("getOnlineUser");
+      newSocket.off("messageReceived");
+      newSocket.close();
+    };
   }, [user?._id]);
+
   return (
     <SocketContext.Provider value={{ socket, onlineUsers }}>
       {children}
