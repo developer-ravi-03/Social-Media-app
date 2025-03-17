@@ -73,28 +73,21 @@ const MessageContainer = ({ selectedChat, setChats }) => {
     }
   }, [messages]);
   return (
-    <div>
+    <>
       {selectedChat && (
         <div className="flex flex-col">
-          <div className="flex w-full h-5 items-center gap-3">
-            <img
-              src={selectedChat.users[0].profilePic.url}
-              className="w-8 h-8 rounded-full"
-              alt=""
-            />
-            <span>{selectedChat.users[0].name}</span>
-          </div>
           {loading ? (
             <LoadingAnimation />
           ) : (
             <>
               <div
                 ref={messageContainerRef}
-                className="flex flex-col gap-4 my-4 h-[380px] overflow-y-auto border border-gray-300 bg-white p-3"
+                className="flex flex-col gap-4  h-[380px] overflow-y-auto  border-gray-300 bg-gray-50 p-3"
               >
                 {messages &&
                   messages.map((e) => (
                     <Message
+                      key={e._id}
                       message={e.text}
                       ownMessage={e.sender === user._id && true}
                     />
@@ -109,7 +102,7 @@ const MessageContainer = ({ selectedChat, setChats }) => {
           )}
         </div>
       )}
-    </div>
+    </>
   );
 };
 
