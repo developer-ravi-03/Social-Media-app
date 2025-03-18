@@ -1,70 +1,81 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react";
-import { AiOutlineHome, AiFillHome } from "react-icons/ai";
-import { BsCameraReelsFill, BsCameraReels } from "react-icons/bs";
-import { IoSearchCircleOutline, IoSearchCircle } from "react-icons/io5";
-import {
-  IoChatbubbleEllipses,
-  IoChatbubbleEllipsesOutline,
-} from "react-icons/io5";
-import { RiAccountCircleFill, RiAccountCircleLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import {
+  Home,
+  HomeIcon,
+  Video,
+  VideoIcon,
+  Search,
+  SearchIcon,
+  MessagesSquare,
+  MessagesSquareIcon,
+  User,
+  UserIcon,
+} from "lucide-react";
+
+import { Clapperboard, ClapperboardIcon } from "lucide-react";
 
 const NavigationBar = () => {
   const [tab, setTab] = useState(window.location.pathname);
+
   return (
-    <div className="fixed bottom-0 w-full bg-white py-3">
-      <div className="flex justify-around">
+    <div className="fixed bottom-0 w-full bg-white py-3 shadow-lg border-t">
+      <div className="flex justify-around items-center">
         <Link
-          to={"/"}
+          to="/"
           onClick={() => setTab("/")}
-          className="flex flex-col items-center text-2xl"
+          className="flex flex-col items-center text-2xl transition-all duration-200 hover:scale-110"
         >
-          <span>{tab === "/" ? <AiFillHome /> : <AiOutlineHome />}</span>
+          {tab === "/" ? <Home className="text-blue-500" /> : <HomeIcon />}
         </Link>
+
         <Link
-          to={"/reels"}
+          to="/reels"
           onClick={() => setTab("/reels")}
-          className="flex flex-col items-center text-2xl"
+          className="flex flex-col items-center text-2xl transition-all duration-200 hover:scale-110"
         >
-          <span>
-            {tab === "/reels" ? <BsCameraReelsFill /> : <BsCameraReels />}
-          </span>
+          {tab === "/reels" ? (
+            <Clapperboard className="text-blue-500 border border-blue-500 rounded-md p-1" />
+          ) : (
+            <ClapperboardIcon />
+          )}
         </Link>
+
         <Link
+          to="/search"
           onClick={() => setTab("/search")}
-          to={"/search"}
-          className="flex flex-col items-center text-2xl"
+          className="flex flex-col items-center text-2xl transition-all duration-200 hover:scale-110"
         >
-          <span>
-            {tab === "/search" ? <IoSearchCircle /> : <IoSearchCircleOutline />}
-          </span>
+          {tab === "/search" ? (
+            <Search className="text-blue-500" />
+          ) : (
+            <SearchIcon />
+          )}
         </Link>
+
         <Link
+          to="/chat"
           onClick={() => setTab("/chat")}
-          to={"/chat"}
-          className="flex flex-col items-center text-2xl"
+          className="flex flex-col items-center text-2xl transition-all duration-200 hover:scale-110"
         >
-          <span>
-            {tab === "/chat" ? (
-              <IoChatbubbleEllipses />
-            ) : (
-              <IoChatbubbleEllipsesOutline />
-            )}
-          </span>
+          {tab === "/chat" ? (
+            <MessagesSquare className="text-blue-500" />
+          ) : (
+            <MessagesSquareIcon />
+          )}
         </Link>
+
         <Link
+          to="/account"
           onClick={() => setTab("/account")}
-          to={"/account"}
-          className="flex flex-col items-center text-2xl"
+          className="flex flex-col items-center text-2xl transition-all duration-200 hover:scale-110"
         >
-          <span>
-            {tab === "/account" ? (
-              <RiAccountCircleFill />
-            ) : (
-              <RiAccountCircleLine />
-            )}
-          </span>
+          {tab === "/account" ? (
+            <User className="text-blue-500" />
+          ) : (
+            <UserIcon />
+          )}
         </Link>
       </div>
     </div>
