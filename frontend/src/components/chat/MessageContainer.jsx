@@ -83,7 +83,7 @@ const MessageContainer = ({ selectedChat, setChats }) => {
               <div
                 ref={messageContainerRef}
                 className="flex flex-col gap-4 overflow-y-auto border-gray-300 bg-gray-50 p-3"
-                style={{ height: "calc(100vh - 170px)" }} // Adjust this value based on actual navbar and input height
+                style={{ height: "calc(100vh - 180px)" }} // Adjust this value based on actual navbar and input height
               >
                 {messages &&
                   messages.map((e) => (
