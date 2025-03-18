@@ -14,6 +14,8 @@ import Search from "./pages/Search";
 import ChatPage from "./pages/ChatPage";
 import { SocketData } from "./context/SocketContext";
 import { UserData } from "./context/UserContext";
+import AddPostPage from "./pages/AddPostPage";
+import AddReelPage from "./pages/AddReelPage";
 
 const App = () => {
   const { loading, isAuth, user } = UserData();
@@ -25,7 +27,10 @@ const App = () => {
       ) : (
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={isAuth ? <Home /> : <Login />} />
+            <Route
+              path="/"
+              element={isAuth ? <Home user={user} /> : <Login />}
+            />
             <Route path="/reels" element={isAuth ? <Reels /> : <Login />} />
             <Route
               path="/account"
@@ -45,6 +50,14 @@ const App = () => {
             <Route
               path="/chat"
               element={isAuth ? <ChatPage user={user} /> : <Login />}
+            />
+            <Route
+              path="/add-post"
+              element={isAuth ? <AddPostPage /> : <Login />}
+            />
+            <Route
+              path="/add-reel"
+              element={isAuth ? <AddReelPage /> : <Login />}
             />
           </Routes>
           {isAuth && <NavigationBar />}
