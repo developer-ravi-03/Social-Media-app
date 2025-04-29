@@ -64,7 +64,7 @@ cd backend
 npm index.js
 ```
 
-### 7️⃣ Install Frontend Dependencies and Run
+### 5️⃣ Install Frontend Dependencies and Run
 ```bash
 npm install
 npm run dev   
