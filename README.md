@@ -16,7 +16,15 @@
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB, Mongoose  
 - **Authentication:** JWT, bcrypt.js  
-- **Real-time:** WebSockets (Socket.io) 
+- **Real-time:** WebSockets (Socket.io)
+
+---
+
+## 🔗 Live Demo
+
+👉 [Visit SocialConnect on Render](https://social-media-app-gkbm.onrender.com/)
+
+---
 
 ## 📂 Installation & Setup  
 
