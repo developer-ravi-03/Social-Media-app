@@ -21,7 +21,7 @@
 ---
 ## 🔗 Live Demo
 
-👉 [Visit SocialConnect on Render](https://social-media-app-gkbm.onrender.com/)
+👉 [Visit SocialConnect](https://social-media-app-gkbm.onrender.com/) on Render
 
 ---
 
