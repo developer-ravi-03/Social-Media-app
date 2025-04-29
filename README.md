@@ -47,3 +47,9 @@ Cloudinary_Cloud_Name = dsrhefgpq (your cloudinary name)
 JWT_SEC = hjdskhwruhdsjshbj (your jwt secret key)
 
 ```
+
+### 4️⃣ Install Backend Dependencies and Run
+```bash
+npm install  # Or yarn install
+npm index.js    # Or yarn start
+```
