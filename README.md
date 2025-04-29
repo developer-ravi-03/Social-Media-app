@@ -32,6 +32,7 @@ cd backend
 ```
 
 ### 3️⃣ Set Up Environment variables 
+## .env file name
 ```bash
 PORT=
 
