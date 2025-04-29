@@ -24,14 +24,9 @@
 ```bash
 git clone https://github.com/developer-ravi-03/Social-Media-app.git
 cd Social-Media-app
+npm install  # Or yarn install
 ```
-
-### 2️⃣ Navigate to Backend Directory
-```bash
-cd backend
-```
-
-### 3️⃣ Set Up Environment variables 
+### 2️⃣ Set Up Environment variables 
 - **.env file name**
 ```bash
 PORT=
@@ -48,8 +43,20 @@ JWT_SEC = hjdskhwruhdsjshbj (your jwt secret key)
 
 ```
 
-### 4️⃣ Install Backend Dependencies and Run
+### 3️⃣ Navigate to Backend Directory
 ```bash
-npm install  # Or yarn install
-npm index.js    # Or yarn start
+cd backend
+```
+
+
+
+### 4️⃣ Run backend
+```bash
+npm index.js
+```
+
+### 7️⃣ Install Frontend Dependencies and Run
+```bash
+npm install
+npm run dev   
 ```
