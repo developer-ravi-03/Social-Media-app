@@ -24,3 +24,25 @@
 ```bash
 git clone https://github.com/developer-ravi-03/Social-Media-app.git
 cd Social-Media-app
+```
+
+### 2️⃣ Navigate to Backend Directory
+```bash
+cd backend
+```
+
+### 3️⃣ Set Up Environment variables 
+```bash
+PORT=
+
+MONGO_URI=
+
+Cloudinary_Api = 669243398353445 (your cloudinary api key)
+
+Cloudinary_Secret = x9gFDn0LtRjIYZdlT_HQ2Zg97nw (your cloudinary secret)
+
+Cloudinary_Cloud_Name = dsrhefgpq (your cloudinary name)
+
+JWT_SEC = hjdskhwruhdsjshbj (your jwt secret key)
+
+```
