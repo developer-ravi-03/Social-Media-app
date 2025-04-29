@@ -19,7 +19,6 @@
 - **Real-time:** WebSockets (Socket.io)
 
 ---
-
 ## 🔗 Live Demo
 
 👉 [Visit SocialConnect on Render](https://social-media-app-gkbm.onrender.com/)
@@ -31,8 +30,10 @@
 ### 1️⃣ Clone the Repository  
 ```bash
 git clone https://github.com/developer-ravi-03/Social-Media-app.git
+
 cd Social-Media-app
-npm install  # Or yarn install
+
+npm install 
 ```
 ### 2️⃣ Set Up Environment variables 
 - **.env file name**
@@ -68,3 +69,5 @@ npm index.js
 npm install
 npm run dev   
 ```
+
+---
