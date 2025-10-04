@@ -1,4 +1,4 @@
-# Social-Media-app
+# SocialConnect - A Social Media Platform
 
 🚀 A feature-rich social media platform built using **MERN Stack (MongoDB, Express, React, Node.js)** that enables users to **create posts, like, comment, follow users, and engage in real-time chat**.
 
